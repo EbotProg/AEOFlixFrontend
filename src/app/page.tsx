@@ -75,7 +75,8 @@ getVid(id)
                 {/* <VideoPlayer videoId={videoId} /> */}
                 <VideoPlayer 
         videoId={videoId}
-        apiBaseUrl="http://localhost:4000/api" 
+        apiBaseUrl={`${process.env.NEXT_PUBLIC_API_URL}/api`}
+        // apiBaseUrl="https://aeoflixbackend.onrender.com/api" 
       />
             </div>
                )}

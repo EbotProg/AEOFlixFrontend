@@ -13,7 +13,7 @@ const handleAddVideoToIndexedDB = async (id: string) => {
         // const videoId = "sample-video"; // Unique ID for the video
         // const videoPath = "/sample.mp4"; // Path to the video in the public folder
         // const videoId = "680ca9134e469cf84a48137e"; // Unique ID for the video
-        const videoPath = `http://localhost:4000/api/videos/${id}`; // Path to the video in the public folder
+        const videoPath = `${process.env.NEXT_PUBLIC_API_URL}/api/videos/${id}`; // Path to the video in the public folder
 
         try {
             // Fetch the video from the public folder
@@ -37,7 +37,8 @@ const handleAddVideoToIndexedDB = async (id: string) => {
 
     const fetchVideos = async () => {
         try {  
-            const response = await fetch("http://localhost:4000/api/videos");
+            // const response = await fetch("https://aeoflixbackend.onrender.com/api/videos");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/videos`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch videos: ${response.statusText}`);
             }
@@ -63,7 +64,8 @@ const handleAddVideoToIndexedDB = async (id: string) => {
                     <li key={index}>    
                         <h2>{video.title}</h2>
                         <p>{video.description}</p>
-                        <img className='w-10 h-10' src={`http://localhost:4000/thumbnails/${video.thumbnailName}`} alt="" />
+                        {/* <img className='w-10 h-10' src={`https://aeoflixbackend.onrender.com/thumbnails/${video.thumbnailName}`} alt="" /> */}
+                       <img className='w-10 h-10' src={`${video.thumbnailUrl}`} alt="" /> 
                         <div className='flex flex-row gap-2'>
                         <button onClick={() => handleAddVideoToIndexedDB(video._id)}>download</button>
                         <button onClick={() => setOnlineId(video._id)}>view online</button>

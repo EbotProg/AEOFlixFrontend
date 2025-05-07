@@ -15,7 +15,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
         const formData = new FormData();
         formData.append("video", file);
 
-        const response = await fetch("http://localhost:4000/api/videos/upload", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/videos/upload`, {
             method: "POST",
             body: formData,
         });
