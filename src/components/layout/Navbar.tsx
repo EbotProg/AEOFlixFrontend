@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./Navbar.module.css";
 import IconRepository from "@/lib/assets/icons/icon.Repository";
 import Link from "next/link";
 
 const Navbar = () => {
   const links = [
-    { name: "Dashboard", path: "/" },
-    { name: "Upload", path: "/" },
-    { name: "Settings", path: "/" },
+    { name: "Home", path: "/" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Upload", path: "/upload" },
+    { name: "Settings", path: "/settings" },
   ];
   const [activeLink, setActiveLink] = useState<string>(links[0].name);
   const handleLinkClick = (linkName: string) => {
