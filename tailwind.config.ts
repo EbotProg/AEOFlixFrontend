@@ -1,0 +1,92 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  theme: {
+    screens: {
+      sm: "428px",
+      md: "834px",
+      lg: "1280px",
+      xl: "1512px",
+      "2xl": "1920px",
+    },
+    fontSize: {
+      xxs: ["8px", "10px"],
+      xs: ["10px", "12px"],
+      sm: ["12px", "16px"],
+      ms: ["14px", "16px"],
+      md: ["16px", "20px"],
+      lg: ["18px", "24px"],
+      xl: ["20px", "28px"],
+      base: ["18px", "24px"],
+      lg2: ["24px", "32px"],
+      "2xl": ["24px", "32px"],
+      "3xl": ["32px", "36px"],
+      "4xl": ["36px", "40px"],
+      "5xl": ["40px", "56px"],
+      "6xl": ["48px", "60px"],
+      "7xl": ["64px", "80px"],
+      "8xl": ["72px", "90px"],
+    },
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        success: "rgb(var(--success))",
+        error: "rgb(var(--error))",
+        primary: {
+          DEFAULT: "rgb(var(--primary-500))",
+          900: "rgb(var(--primary-900))",
+          800: "rgb(var(--primary-800))",
+          700: "rgb(var(--primary-700))",
+          600: "rgb(var(--primary-600))",
+          500: "rgb(var(--primary-500))",
+          400: "rgb(var(--primary-400))",
+          300: "rgb(var(--primary-300))",
+          200: "rgb(var(--primary-200))",
+          100: "rgb(var(--primary-100))",
+          50: "rgb(var(--primary-50))",
+        },
+        neutral: {
+          DEFAULT: "rgb(var(--neutral-700))",
+          900: "rgb(var(--neutral-900))",
+          800: "rgb(var(--neutral-800))",
+          700: "rgb(var(--neutral-700))",
+          600: "rgb(var(--neutral-600))",
+          500: "rgb(var(--neutral-500))",
+          400: "rgb(var(--neutral-400))",
+          300: "rgb(var(--neutral-300))",
+          200: "rgb(var(--neutral-200))",
+          100: "rgb(var(--neutral-100))",
+          50: "rgb(var(--neutral-50))",
+        },
+        info: {
+          DEFAULT: "#35598D",
+          700: "#35598D",
+          600: "#4777BE",
+          50: "#F2F7FE",
+        },
+      },
+      boxShadow: {
+        sm: "0px 1px 2px rgba(0, 0, 0, 0.05)",
+        base: "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+        md: "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        lg: "0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        xl: "0px 20px 25px -5px rgba(0, 0, 0, 0.1)",
+        "2xl": "0px 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        inner: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+      },
+      backgroundImage: {
+        "grad-primary":
+          "linear-gradient(45deg, rgb(var(--primary-700)), rgb(var(--primary-500)))",
+        instructors: "url('/assets/images/instructor_background.png')",
+        dotted: "url('/assets/images/dotted_bg.png')",
+      },
+      animation: {
+        "spin-slow": "spin 12s linear infinite",
+      },
+    },
+  },
+  plugins: [],
+};
+export default config;

@@ -1,41 +1,46 @@
 import React from "react";
 
 interface FileUploaderProps {
-    onUploadSuccess: (id: string) => void; // Callback for successful upload
+  onUploadSuccess: (id: string) => void; // Callback for successful upload
 }
 
 const FileUploader: React.FC<FileUploaderProps> = ({ onUploadSuccess }) => {
-    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (!file) {
-            alert("Please select a file.");
-            return;
-        }
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
 
-        const formData = new FormData();
-        formData.append("video", file);
+    const formData = new FormData();
+    formData.append("video", file);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/videos/upload`, {
-            method: "POST",
-            body: formData,
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            console.log('hello result', result)
-            onUploadSuccess(result.video._id); // Pass the file path to the parent component
-            alert("File uploaded successfully!");
-        } else {
-            alert(`Error: ${result.error}`);
-        }
-    };
-
-    return (
-        <div>
-            <h2>Upload a Video</h2>
-            <input type="file" onChange={handleFileUpload} />
-        </div>
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/videos/upload`,
+      {
+        method: "POST",
+        body: formData,
+      },
     );
+
+    const result = await response.json();
+    if (response.ok) {
+      console.log("hello result", result);
+      onUploadSuccess(result.video._id); // Pass the file path to the parent component
+      alert("File uploaded successfully!");
+    } else {
+      alert(`Error: ${result.error}`);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Upload a Video</h2>
+      <input type="file" onChange={handleFileUpload} />
+    </div>
+  );
 };
 
 export default FileUploader;
