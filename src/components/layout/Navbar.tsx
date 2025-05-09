@@ -36,7 +36,7 @@ const Navbar = () => {
             href={link.path}
             key={link.name}
             onClick={() => handleLinkClick(link.name)}
-            className={`${link.name === activeLink ? "bg-black text-white" : "bg-white text-black"}  py-2 px-5 rounded-2xl hover:bg-[#333333] hover:text-white`}
+            className={`${link.name === activeLink ? "bg-black text-white" : "bg-white text-black"}  py-2 px-5 rounded-2xl hover:bg-[#333333] hover:text-white focus:bg-black focus:text-white`}
           >
             {link.name}
           </Link>
