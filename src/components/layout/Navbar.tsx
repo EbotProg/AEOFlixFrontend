@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
       </div>
       {isClient && width < 768 && (
         <ul
-          className={`${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} flex place-items-center  flex-col gap-2 transition-all duration-300 delay-150 ease-in-out absolute top-[100%] left-0  bg-gray-100 w-full px-4 py-6 text-center md:static md:w-fit md:flex-row`}
+          className={`${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 hidden"} flex place-items-center  flex-col gap-2 transition-all duration-300 delay-150 ease-in-out absolute top-[100%] left-0  bg-gray-100 w-full px-4 py-6 text-center md:static md:w-fit md:flex-row`}
         >
           {links.map((link) => (
             //<li key={link.name} onClick={() => handleLinkClick(link.name)} className={`${link.name === activeLink? 'bg-black text-white': 'bg-white text-black'}  py-2 px-5 rounded-2xl hover:bg-[#333333] hover:text-white`}>
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
       <div>
         <button
           onClick={handleMenuClick}
-          className="p-2 bg-gray-100 rounded-full flex flex-row gap-2 cursor-pointer"
+          className="p-2 bg-white rounded-full flex flex-row gap-2 cursor-pointer"
         >
           <IconRepository.MenuLogo width={20} height={20} />
         </button>

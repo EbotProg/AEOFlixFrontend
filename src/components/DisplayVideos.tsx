@@ -1,5 +1,6 @@
 import { retrieveVideoFromChunks, storeVideoAsChunks } from "@/utils/indexedDB";
 import React, { useEffect } from "react";
+import Video from "./organisms/Video.organism";
 
 interface DisplayVideosProps {
   setOfflineId: (id: string) => void; // Function to set the offline video ID
@@ -79,6 +80,16 @@ const DisplayVideos = ({ setOfflineId, setOnlineId }: DisplayVideosProps) => {
           </li>
         ))}
       </ul>
+      <div>
+        <h1>test </h1>
+        {
+          <Video
+            title={videoList[2]?.title}
+            id={videoList[2]?._id}
+            thumbnailUrl={videoList[2]?.thumbnailUrl}
+          />
+        }
+      </div>
     </div>
   );
 };
