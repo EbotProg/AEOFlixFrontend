@@ -84,7 +84,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
             <li>
               <Link
                 onClick={() => handleLinkClick("Home")}
-                className={`${"Home" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
+                className={`${"Home" === activeLink ? "bg-gray-200 font-semibold" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/"
               >
                 {"Home" === activeLink ? <HomeIcon /> : <HomeOutlinedIcon />}
@@ -94,7 +94,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
             <li>
               <Link
                 onClick={() => handleLinkClick("Dashboard")}
-                className={`${"Dashboard" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
+                className={`${"Dashboard" === activeLink ? "bg-gray-200 font-semibold" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/dashboard"
               >
                 {"Dashboard" === activeLink ? (
@@ -112,7 +112,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
             <li>
               <Link
                 onClick={() => handleLinkClick("Your videos")}
-                className={`${"Your videos" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
+                className={`${"Your videos" === activeLink ? "bg-gray-200 font-semibold" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/your-videos"
               >
                 {"Your videos" === activeLink ? (
@@ -126,7 +126,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
             <li>
               <Link
                 onClick={() => handleLinkClick("Downloads")}
-                className={`${"Downloads" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
+                className={`${"Downloads" === activeLink ? "bg-gray-200 font-semibold" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/downloads"
               >
                 {"Downloads" === activeLink ? (
@@ -144,7 +144,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
             <li>
               <Link
                 onClick={() => handleLinkClick("Settings")}
-                className={`${"Settings" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
+                className={`${"Settings" === activeLink ? "bg-gray-200 font-semibold" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/settings"
               >
                 {"Settings" === activeLink ? (
@@ -158,7 +158,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
             <li>
               <Link
                 onClick={() => handleLinkClick("Account")}
-                className={`${"Account" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
+                className={`${"Account" === activeLink ? "bg-gray-200 font-semibold" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/account"
               >
                 {"Account" === activeLink ? (
