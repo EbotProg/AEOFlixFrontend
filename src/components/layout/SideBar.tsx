@@ -4,11 +4,18 @@ import React, { useEffect, useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
+import TheatersIcon from "@mui/icons-material/Theaters";
 import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
 import FileDownloadOutlined from "@mui/icons-material/FileDownloadOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import HomeIcon from "@mui/icons-material/Home";
+import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
+import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
+import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -65,7 +72,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
           </button>
           <div className="flex flex-row gap-0.5 cursor-pointer place-items-center">
             <div className="p-1 bg-gray-300 rounded-md">
-              <TheatersOutlinedIcon />
+              <TheatersIcon />
             </div>
 
             <h1 className="text-lg font-semibold">AEOFlix</h1>
@@ -80,7 +87,8 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
                 className={`${"Home" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/"
               >
-                <HomeOutlinedIcon /> Home
+                {"Home" === activeLink ? <HomeIcon /> : <HomeOutlinedIcon />}
+                Home
               </Link>
             </li>
             <li>
@@ -89,7 +97,12 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
                 className={`${"Dashboard" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/dashboard"
               >
-                <DashboardOutlinedIcon /> Dashboard
+                {"Dashboard" === activeLink ? (
+                  <DashboardIcon />
+                ) : (
+                  <DashboardOutlinedIcon />
+                )}{" "}
+                Dashboard
               </Link>
             </li>
           </ul>
@@ -102,7 +115,12 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
                 className={`${"Your videos" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/your-videos"
               >
-                <SmartDisplayOutlinedIcon /> Your videos
+                {"Your videos" === activeLink ? (
+                  <SmartDisplayIcon />
+                ) : (
+                  <SmartDisplayOutlinedIcon />
+                )}
+                Your videos
               </Link>
             </li>
             <li>
@@ -111,7 +129,12 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
                 className={`${"Downloads" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/downloads"
               >
-                <FileDownloadOutlined /> Downloads
+                {"Downloads" === activeLink ? (
+                  <FileDownloadRoundedIcon />
+                ) : (
+                  <GetAppOutlinedIcon />
+                )}
+                Downloads
               </Link>
             </li>
           </ul>
@@ -124,7 +147,12 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
                 className={`${"Settings" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/settings"
               >
-                <SettingsOutlinedIcon /> Settings
+                {"Settings" === activeLink ? (
+                  <SettingsIcon />
+                ) : (
+                  <SettingsOutlinedIcon />
+                )}
+                Settings
               </Link>
             </li>
             <li>
@@ -133,7 +161,12 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
                 className={`${"Account" === activeLink ? "bg-gray-200" : "hover:bg-gray-100"} flex flex-row gap-2 place-items-center p-2 rounded-md focus:bg-gray-200`}
                 href="/account"
               >
-                <AccountCircleOutlinedIcon /> Account
+                {"Account" === activeLink ? (
+                  <AccountCircleIcon />
+                ) : (
+                  <AccountCircleOutlinedIcon />
+                )}
+                Account
               </Link>
             </li>
           </ul>

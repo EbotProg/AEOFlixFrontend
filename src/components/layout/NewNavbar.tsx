@@ -1,5 +1,6 @@
 import IconRepository from "@/lib/assets/icons/icon.Repository";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
+import TheatersIcon from "@mui/icons-material/Theaters";
 
 import React from "react";
 interface NewNavbarProps {
