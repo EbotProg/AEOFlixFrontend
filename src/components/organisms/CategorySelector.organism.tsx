@@ -66,7 +66,7 @@ const CategorySelector = ({
   }, []);
 
   return (
-    <div className="relative max-w-fit">
+    <div className="relative max-w-fit z-0">
       {canScrollLeft && (
         <button
           onClick={handleScrollLeft}

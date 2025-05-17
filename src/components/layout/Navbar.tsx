@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav className="p-4 bg-gray-100 flex flex-row justify-between place-items-center sticky top-0 h-[60px] md:h-[70px] font-montserrat">
+    <nav className="p-4 bg-gray-100 flex flex-row justify-between place-items-center sticky top-0 h-[60px] md:h-[70px] font-montserrat z-50">
       <div className="py-2 px-5 bg-white rounded-2xl flex flex-row gap-2 cursor-pointer">
         <IconRepository.LogoIcon />
         <h1 className="text-sm font-semibold">AEOFlix</h1>
