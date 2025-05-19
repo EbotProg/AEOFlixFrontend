@@ -11,7 +11,7 @@ const NewNavbar = ({ handleMenuClick }: NewNavbarProps) => {
     <div className="flex flex-row gap-6 place-items-center p-3 sticky top-0 left-0 bg-white z-40 ">
       <button
         onClick={handleMenuClick}
-        className="rounded-full flex flex-row cursor-pointer"
+        className="rounded-full flex flex-row cursor-pointer p-2 hover:bg-gray-200 focus:bg-gray-300"
       >
         <IconRepository.MenuLogo width={25} height={25} />
       </button>

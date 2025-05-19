@@ -19,13 +19,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useClickOutside from "@/lib/hooks/useClickOutside";
 
 interface SideBarProps {
   isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
   handleMenuClick: () => void;
 }
 
-const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
+const SideBar = ({ isOpen, handleMenuClick, setIsOpen }: SideBarProps) => {
   const links = [
     { name: "Home", path: "/" },
     { name: "Dashboard", path: "/dashboard" },
@@ -38,6 +40,7 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
   const pathname = usePathname();
   const isActive = (linkPath: string) => pathname.includes(linkPath);
   const [activeLink, setActiveLink] = useState<string>(links[0].name);
+  const ref = useClickOutside(() => setIsOpen(false));
   // const [isOpen, setIsOpen] = useState<boolean>(false);
   // const handleMenuClick = () => {
   //   setIsOpen(!isOpen);
@@ -61,12 +64,13 @@ const SideBar = ({ isOpen, handleMenuClick }: SideBarProps) => {
       className={`${isOpen ? "backdrop-blur-[1px] bg-black/20 opacity-100 w-screen h-screen" : "opacity-0"} z-50 fixed top-0 left-0  transition-opacity duration-300 ease-in-out`}
     >
       <div
+        ref={ref}
         className={`${isOpen ? "translate-x-0" : "-translate-x-full"} p-3 flex flex-col gap-11 w-[250px] z-50 bg-white h-screen fixed top-0 left-0 transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-row gap-6 place-items-center">
           <button
             onClick={handleMenuClick}
-            className="rounded-full flex flex-row cursor-pointer"
+            className="rounded-full flex flex-row cursor-pointer p-2 focus:bg-gray-200"
           >
             <IconRepository.MenuLogo width={25} height={25} />
           </button>

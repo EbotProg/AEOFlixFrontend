@@ -15,7 +15,11 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
   };
   return (
     <div className="flex flex-row relative">
-      <SideBar isOpen={isOpen} handleMenuClick={handleMenuClick} />
+      <SideBar
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        handleMenuClick={handleMenuClick}
+      />
       <div className="absolute top-0 left-0 w-full">
         <NewNavbar handleMenuClick={handleMenuClick} />
 
