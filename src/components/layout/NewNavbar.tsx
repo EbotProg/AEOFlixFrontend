@@ -8,7 +8,7 @@ interface NewNavbarProps {
 }
 const NewNavbar = ({ handleMenuClick }: NewNavbarProps) => {
   return (
-    <div className="flex flex-row gap-6 place-items-center p-3 sticky top-0 left-0 bg-white z-40 ">
+    <div className="flex flex-row gap-6 place-items-center p-3 lg:py-3 lg:px-7 sticky top-0 left-0 bg-white z-40 ">
       <button
         onClick={handleMenuClick}
         className="rounded-full flex flex-row cursor-pointer p-2 hover:bg-gray-200 focus:bg-gray-300"

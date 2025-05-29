@@ -1,6 +1,6 @@
 "use client";
 import IconRepository from "@/lib/assets/icons/icon.Repository";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import TheatersOutlinedIcon from "@mui/icons-material/TheatersOutlined";
@@ -16,6 +16,7 @@ import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import useWindowSize from "@/lib/hooks/useWindowSize";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -40,7 +41,18 @@ const SideBar = ({ isOpen, handleMenuClick, setIsOpen }: SideBarProps) => {
   const pathname = usePathname();
   const isActive = (linkPath: string) => pathname.includes(linkPath);
   const [activeLink, setActiveLink] = useState<string>(links[0].name);
-  const ref = useClickOutside(() => setIsOpen(false));
+
+  const [isClient, setIsClient] = useState(false);
+  const { width } = useWindowSize();
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, () => {
+    if (width < 1024) setIsOpen(false);
+  });
+  const isMediumSmallScreen = width < 1024;
+  const isLargeScreen = width >= 1024;
+  useEffect(() => {
+    setIsClient(true);
+  }, [width]);
   // const [isOpen, setIsOpen] = useState<boolean>(false);
   // const handleMenuClick = () => {
   //   setIsOpen(!isOpen);
@@ -61,11 +73,11 @@ const SideBar = ({ isOpen, handleMenuClick, setIsOpen }: SideBarProps) => {
 
   return (
     <div
-      className={`${isOpen ? "backdrop-blur-[1px] bg-black/20 opacity-100 w-screen h-screen" : "opacity-0"} z-50 fixed top-0 left-0  transition-opacity duration-300 ease-in-out`}
+      className={`${isClient && isOpen && isMediumSmallScreen ? "backdrop-blur-[1px] bg-black/20 opacity-100 w-screen h-screen" : "opacity-0"} z-50 fixed top-0 left-0  transition-opacity duration-300 ease-in-out`}
     >
       <div
         ref={ref}
-        className={`${isOpen ? "translate-x-0" : "-translate-x-full"} p-3 flex flex-col gap-11 w-[250px] z-50 bg-white h-screen fixed top-0 left-0 transition-transform duration-300 ease-in-out`}
+        className={`${isClient && isOpen && isMediumSmallScreen ? "translate-x-0" : "-translate-x-full"} p-3 flex flex-col gap-11 w-[250px] z-50 bg-white h-screen fixed top-0 left-0 transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-row gap-6 place-items-center">
           <button

@@ -1,8 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import IconRepository from "@/lib/assets/icons/icon.Repository";
 import NewNavbar from "./NewNavbar";
+import useWindowSize from "@/lib/hooks/useWindowSize";
+import SmallNavbar from "./SmallNavbar";
+import DesktopSideBar from "./DesktopSideBar";
 
 interface ClientLayoutProps {
   children: React.ReactNode;
@@ -13,6 +16,13 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
   const handleMenuClick = () => {
     setIsOpen(!isOpen);
   };
+  const { width } = useWindowSize();
+  const isLargeScreen = width >= 1024;
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div className="flex flex-row relative">
       <SideBar
@@ -20,10 +30,18 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
         setIsOpen={setIsOpen}
         handleMenuClick={handleMenuClick}
       />
-      <div className="absolute top-0 left-0 w-full">
+
+      <div className="w-full">
         <NewNavbar handleMenuClick={handleMenuClick} />
 
-        {children}
+        <div className="flex flex-row">
+          {isClient && isLargeScreen && (
+            <div className="relative">
+              {!isOpen ? <SmallNavbar /> : <DesktopSideBar isOpen={isOpen} />}
+            </div>
+          )}
+          {children}
+        </div>
       </div>
     </div>
   );
