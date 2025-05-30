@@ -63,6 +63,9 @@ export const openDB = async (): Promise<IDBDatabase> => {
       if (!db.objectStoreNames.contains("videoChunks")) {
         db.createObjectStore("videoChunks", { keyPath: "chunkId" });
       }
+      if (!db.objectStoreNames.contains("thumbnails")) {
+        db.createObjectStore("thumbnails", { keyPath: "id" });
+      }
     };
 
     request.onsuccess = (event) =>
@@ -73,7 +76,11 @@ export const openDB = async (): Promise<IDBDatabase> => {
 };
 
 // Function to store video as chunks
-export const storeVideoAsChunks = async (id: string, videoBlob: Blob) => {
+export const storeVideoAsChunks = async (
+  id: string,
+  videoBlob: Blob,
+  metadata: { title: string; thumbnailUrl: string },
+) => {
   const db = await openDB();
   const transaction = db.transaction(["videos", "videoChunks"], "readwrite");
 
@@ -88,6 +95,8 @@ export const storeVideoAsChunks = async (id: string, videoBlob: Blob) => {
     const chunkId = `${id}-chunk-${i}`;
     storeChunks.put({ chunkId, data: chunkBlob });
   }
+  storeVideoMetadata(id, metadata);
+  storeThumbnail(id, metadata.thumbnailUrl);
 };
 
 // Function to retrieve and reconstruct video from chunks
@@ -121,6 +130,81 @@ export const retrieveVideoFromChunks = async (
     };
 
     cursorRequest.onerror = () => reject(cursorRequest.error);
+  });
+};
+
+export const storeVideoMetadata = async (
+  id: string,
+  metadata: { title: string; thumbnailUrl: string }, // Metadata to store
+) => {
+  const db = await openDB();
+  const transaction = db.transaction(["videos"], "readwrite");
+  const storeVideos = transaction.objectStore("videos");
+
+  return new Promise((resolve, reject) => {
+    const request = storeVideos.put({ id, ...metadata });
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const listStoredVideos = async (): Promise<any[]> => {
+  const db = await openDB();
+  const transaction = db.transaction("videos", "readonly");
+  const storeVideos = transaction.objectStore("videos");
+
+  return new Promise((resolve, reject) => {
+    const videos: any[] = [];
+    const cursorRequest = storeVideos.openCursor();
+
+    cursorRequest.onsuccess = (event) => {
+      const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result;
+      if (cursor) {
+        const thumbnialUrl = getThumbnail(cursor.value.id); // Fetch thumbnail URL
+        videos.push({ ...cursor.value, thumbnialUrl });
+        cursor.continue();
+      } else {
+        resolve(videos);
+      }
+    };
+
+    cursorRequest.onerror = () => reject(cursorRequest.error);
+  });
+};
+
+export const storeThumbnail = async (id: string, thumbnailUrl: string) => {
+  const response = await fetch(thumbnailUrl);
+  const blob = await response.blob(); // Convert image to Blob
+
+  const db = await openDB();
+  const transaction = db.transaction(["thumbnails"], "readwrite");
+  const storeThumbnails = transaction.objectStore("thumbnails");
+
+  return new Promise((resolve, reject) => {
+    const request = storeThumbnails.put({ id, blob }); // Store the Blob
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const getThumbnail = async (id: string) => {
+  const db = await openDB();
+  const transaction = db.transaction("thumbnails", "readonly");
+  const storeThumbnails = transaction.objectStore("thumbnails");
+
+  return new Promise((resolve, reject) => {
+    const request = storeThumbnails.get(id);
+
+    request.onsuccess = () => {
+      if (request.result) {
+        const url = URL.createObjectURL(request.result.blob); // Convert Blob to object URL
+        resolve(url);
+      } else {
+        resolve(null);
+      }
+    };
+
+    request.onerror = () => reject(request.error);
   });
 };
 

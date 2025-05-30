@@ -10,7 +10,10 @@ interface DisplayVideosProps {
 const DisplayVideos = ({ setOfflineId, setOnlineId }: DisplayVideosProps) => {
   const [videoList, setVideoList] = React.useState<any[]>([]); // State to store the list of videos
 
-  const handleAddVideoToIndexedDB = async (id: string) => {
+  const handleAddVideoToIndexedDB = async (
+    id: string,
+    metadata: { title: string; thumbnailUrl: string },
+  ) => {
     // const videoId = "sample-video"; // Unique ID for the video
     // const videoPath = "/sample.mp4"; // Path to the video in the public folder
     // const videoId = "680ca9134e469cf84a48137e"; // Unique ID for the video
@@ -27,7 +30,7 @@ const DisplayVideos = ({ setOfflineId, setOnlineId }: DisplayVideosProps) => {
       const videoBlob = await response.blob();
 
       // Store the video in IndexedDB
-      await storeVideoAsChunks(id, videoBlob);
+      await storeVideoAsChunks(id, videoBlob, metadata);
 
       alert("Video has been added and is ready for offline viewing!");
     } catch (error: any) {
@@ -67,7 +70,14 @@ const DisplayVideos = ({ setOfflineId, setOnlineId }: DisplayVideosProps) => {
             {/* <img className='w-10 h-10' src={`https://aeoflixbackend.onrender.com/thumbnails/${video.thumbnailName}`} alt="" /> */}
             <img className="w-10 h-10" src={`${video.thumbnailUrl}`} alt="" />
             <div className="flex flex-row gap-2">
-              <button onClick={() => handleAddVideoToIndexedDB(video._id)}>
+              <button
+                onClick={() =>
+                  handleAddVideoToIndexedDB(video._id, {
+                    title: video.title,
+                    thumbnailUrl: video.thumbnailUrl,
+                  })
+                }
+              >
                 download
               </button>
               <button onClick={() => setOnlineId(video._id)}>

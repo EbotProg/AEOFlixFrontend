@@ -50,11 +50,13 @@ const page = () => {
     });
   };
   return (
-    <div className="p-4 flex flex-col gap-4">
-      <CategorySelector
-        categories={categories}
-        handleCategorySelect={handleCategorySelect}
-      />
+    <div className="p-4 flex flex-col gap-4 w-full">
+      <div className="w-full">
+        <CategorySelector
+          categories={categories}
+          handleCategorySelect={handleCategorySelect}
+        />
+      </div>
 
       <Videos />
     </div>

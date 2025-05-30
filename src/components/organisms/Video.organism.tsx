@@ -6,20 +6,23 @@ interface VideoProps {
   title: string;
   id: string;
   thumbnailUrl: string;
+  downloaded?: boolean;
 }
 
-const Video = ({ title, id, thumbnailUrl }: VideoProps) => {
+const Video = ({ title, id, thumbnailUrl, downloaded }: VideoProps) => {
   return (
     <Link
       href={`/video/${id}`}
-      className="flex flex-col gap-2 bg-white w-full hover:cursor-pointer hover:bg-gray-100 hover:rounded-2xl p-2"
+      className="flex flex-col gap-2 bg-white w-full hover:cursor-pointer p-2"
     >
       <img className="rounded-xl aspect-video" src={thumbnailUrl} alt={title} />
       <div>
         <h5>{title}</h5>
-        <button>
-          <IconRepository.DownloadIcon />
-        </button>
+        {!downloaded && (
+          <button>
+            <IconRepository.DownloadIcon />
+          </button>
+        )}
       </div>
     </Link>
   );

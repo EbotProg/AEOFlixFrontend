@@ -25,7 +25,8 @@ const TestOfflineVideo = () => {
       const videoBlob = await response.blob();
 
       // Store the video in IndexedDB
-      await storeVideoAsChunks(videoId, videoBlob);
+
+      // await storeVideoAsChunks(videoId, videoBlob);
 
       // Retrieve the video immediately from IndexedDB
       const retrievedBlob = await retrieveVideoFromChunks(videoId);

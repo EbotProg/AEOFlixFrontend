@@ -1,22 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Video from "./Video.organism";
+import { listStoredVideos } from "@/utils/indexedDB";
 
-const Videos = () => {
+const DownloadedVideos = () => {
   const [videoList, setVideoList] = React.useState<any[]>([]); // State to store the list of videos
   const [isLoading, setIsLoading] = useState(false);
-  const fetchVideos = async () => {
+  const getVideos = async () => {
     try {
       // const response = await fetch("https://aeoflixbackend.onrender.com/api/videos");
       setIsLoading(true);
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/videos`,
-      );
-      if (!response.ok) {
-        throw new Error(`Failed to fetch videos: ${response.statusText}`);
-      }
-      const data = await response.json();
-      console.log("Fetched videos:", data);
+      const data = await listStoredVideos();
+      console.log("downloaded videos:", data);
       setIsLoading(false);
       setVideoList(data); // Update the video list state
     } catch (err: any) {
@@ -25,20 +20,21 @@ const Videos = () => {
   };
 
   useEffect(() => {
-    fetchVideos();
+    getVideos();
   }, []);
 
   return (
-    <div>
+    <div className="w-full">
       {isLoading && <p>Loading ...</p>}
       {!isLoading && videoList && (
         <div className="flex flex-col gap-3 w-full md:grid md:grid-cols-2 lg:grid-cols-3">
           {videoList.map((item) => (
             <Video
-              key={item._id}
+              key={item.id}
               title={item.title}
-              id={item._id}
+              id={item.id}
               thumbnailUrl={item.thumbnailUrl}
+              downloaded={true} // Indicating that this video is downloaded
             />
           ))}
         </div>
@@ -47,4 +43,4 @@ const Videos = () => {
   );
 };
 
-export default Videos;
+export default DownloadedVideos;
