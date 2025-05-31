@@ -208,6 +208,10 @@ export const getThumbnail = async (id: string) => {
   });
 };
 
+export const isVideoDownloaded = async (id: string): Promise<boolean> => {
+  const videos = await listStoredVideos();
+  return videos.some((video) => video.id === id);
+};
 // Example usage:
 // To store a video
 // await storeVideoAsChunks("video1", videoBlob);
