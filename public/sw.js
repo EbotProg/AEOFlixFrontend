@@ -1,18 +1,16 @@
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open("offline-cache").then((cache) => {
+    caches.open("offline-ui-cache").then((cache) => {
       return cache.addAll([
         "/", // Homepage
-        "/offline", // Offline fallback page
+        "/downloads", // Download route
       ]);
     }),
   );
 });
 
 self.addEventListener("fetch", (event) => {
-  const url = new URL(event.request.url);
-
-  if (url.pathname.startsWith("/video/")) {
+  if (event.request.destination === "document") {
     event.respondWith(
       caches
         .match(event.request)
@@ -20,18 +18,14 @@ self.addEventListener("fetch", (event) => {
           return (
             response ||
             fetch(event.request).then((res) => {
-              return caches.open("offline-cache").then((cache) => {
+              return caches.open("offline-ui-cache").then((cache) => {
                 cache.put(event.request, res.clone());
                 return res;
               });
             })
           );
         })
-        .catch(() => caches.match("/offline")),
-    );
-  } else {
-    event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request)),
+        .catch(() => caches.match("/download")), // Serve cached version
     );
   }
 });

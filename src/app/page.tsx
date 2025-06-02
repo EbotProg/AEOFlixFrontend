@@ -41,6 +41,15 @@ const HomePage = () => {
     getVid(id);
   };
 
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      console.log("want to register service worker");
+      navigator.serviceWorker.register("/sw.js").catch((err) => {
+        console.error("Service Worker registration failed:", err);
+      });
+    }
+  }, []);
+
   return (
     <main style={{ padding: "20px" }}>
       <main style={{ padding: "20px" }}>
