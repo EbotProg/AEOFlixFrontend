@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import Video from "./Video.organism";
 import { listStoredVideos } from "@/utils/indexedDB";
 
-const DownloadedVideos = () => {
+interface DownloadedVideosProps {
+  handleClick?: (id: string) => void; // Optional prop for handling video click
+}
+
+const DownloadedVideos = ({ handleClick }: DownloadedVideosProps) => {
   const [videoList, setVideoList] = React.useState<any[]>([]); // State to store the list of videos
   const [isLoading, setIsLoading] = useState(false);
   const getVideos = async () => {
@@ -35,6 +39,7 @@ const DownloadedVideos = () => {
               id={item.id}
               thumbnailUrl={item.thumbnailUrl}
               downloaded={true} // Indicating that this video is downloaded
+              handleClick={handleClick} // Pass the handleClick function to Video component
             />
           ))}
         </div>

@@ -33,28 +33,6 @@ self.addEventListener("fetch", (event) => {
     );
   }
 
-  // Handling dynamic video routes
-  else if (url.pathname.startsWith("/video/")) {
-    console.log(`Intercepted request for video page: ${url.pathname}`);
-
-    event.respondWith(
-      caches
-        .match(event.request)
-        .then((cachedResponse) => {
-          return (
-            cachedResponse ||
-            fetch(event.request).then((fetchResponse) => {
-              return caches.open("offline-video-cache").then((cache) => {
-                cache.put(event.request, fetchResponse.clone());
-                return fetchResponse;
-              });
-            })
-          );
-        })
-        .catch(() => caches.match("/downloads")), // Serve fallback page for videos
-    );
-  }
-
   // Default caching for other requests (styles, scripts, assets)
   else {
     event.respondWith(

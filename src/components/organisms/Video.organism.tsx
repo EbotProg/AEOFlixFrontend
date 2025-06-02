@@ -9,21 +9,27 @@ interface VideoProps {
   id: string;
   thumbnailUrl: string;
   downloaded?: boolean;
+  handleClick?: (id: string) => void; // Optional prop for handling video click
 }
 
-const Video = ({ title, id, thumbnailUrl, downloaded }: VideoProps) => {
+const Video = ({
+  title,
+  id,
+  thumbnailUrl,
+  downloaded,
+  handleClick,
+}: VideoProps) => {
   const router = useRouter();
-  const handleOfflineVideoNavigation = (videoId: string) => {
-    if (!navigator.onLine) {
-      localStorage.setItem("offline-video-id", videoId); // Store the video ID
-      window.location.href = `/video/${videoId}`; // Navigate to the video route
+  const handleVideoNavigation = (videoId: string) => {
+    if (downloaded) {
+      handleClick?.(videoId); // Call the handleClick function if provided
     } else {
       router.push(`/video/${videoId}`); // Normal online navigation
     }
   };
   return (
     <div
-      onClick={() => handleOfflineVideoNavigation(id)}
+      onClick={() => handleVideoNavigation(id)}
       className="flex flex-col gap-2 bg-white w-full hover:cursor-pointer p-2"
     >
       <img className="rounded-xl aspect-video" src={thumbnailUrl} alt={title} />
