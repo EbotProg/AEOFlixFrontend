@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Video from "./Video.organism";
+import { listStoredVideos } from "@/utils/indexedDB";
 
 const Videos = () => {
   const [videoList, setVideoList] = React.useState<any[]>([]); // State to store the list of videos
@@ -18,10 +19,20 @@ const Videos = () => {
       const data = await response.json();
       console.log("Fetched videos:", data);
       setIsLoading(false);
+      for (let i = 0; i < data.length; i++) {
+        const isDownloaded = await handleDownloadedVideoCheck(data[i]._id);
+        data[i].downloaded = isDownloaded; // Add downloaded status to each video
+      }
       setVideoList(data); // Update the video list state
     } catch (err: any) {
       console.error("Error fetching videos:", err);
     }
+  };
+
+  const handleDownloadedVideoCheck = async (id: string) => {
+    const data = await listStoredVideos();
+    const isDownloaded = data.some((video) => video.id === id);
+    return isDownloaded;
   };
 
   useEffect(() => {
@@ -39,6 +50,7 @@ const Videos = () => {
               title={item.title}
               id={item._id}
               thumbnailUrl={item.thumbnailUrl}
+              downloaded={item.downloaded} // Indicating if this video is downloaded
             />
           ))}
         </div>

@@ -58,7 +58,7 @@ const DesktopSideBar = ({ isOpen }: DesktopSideBarProps) => {
         setActiveLink(link.name);
       }
     });
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     console.log("isOpen", isOpen);

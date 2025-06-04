@@ -212,6 +212,35 @@ export const isVideoDownloaded = async (id: string): Promise<boolean> => {
   const videos = await listStoredVideos();
   return videos.some((video) => video.id === id);
 };
+
+export const handleAddVideoToIndexedDB = async (
+  id: string,
+  metadata: { title: string; thumbnailUrl: string },
+) => {
+  // const videoId = "sample-video"; // Unique ID for the video
+  // const videoPath = "/sample.mp4"; // Path to the video in the public folder
+  // const videoId = "680ca9134e469cf84a48137e"; // Unique ID for the video
+  const videoPath = `${process.env.NEXT_PUBLIC_API_URL}/api/videos/${id}`; // Path to the video in the public folder
+
+  try {
+    // Fetch the video from the public folder
+    const response = await fetch(videoPath);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch video: ${response.statusText}`);
+    }
+
+    // Get the video as a Blob
+    const videoBlob = await response.blob();
+
+    // Store the video in IndexedDB
+    await storeVideoAsChunks(id, videoBlob, metadata);
+
+    alert("Video has been added and is ready for offline viewing!");
+  } catch (error: any) {
+    console.error("Error adding video to IndexedDB:", error);
+    alert(`Error: ${error.message}`);
+  }
+};
 // Example usage:
 // To store a video
 // await storeVideoAsChunks("video1", videoBlob);

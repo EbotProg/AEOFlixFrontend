@@ -43,7 +43,7 @@ const SmallNavbar = () => {
         setActiveLink(link.name);
       }
     });
-  }, []);
+  }, [pathname]);
 
   return (
     <div className="z-40 py-3 h-[500px] w-fit sticky top-[65px] left-0">

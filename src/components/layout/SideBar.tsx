@@ -39,6 +39,7 @@ const SideBar = ({ isOpen, handleMenuClick, setIsOpen }: SideBarProps) => {
   ];
 
   const pathname = usePathname();
+  console.log("pathname", pathname);
   const isActive = (linkPath: string) => pathname.includes(linkPath);
   const [activeLink, setActiveLink] = useState<string>(links[0].name);
 
@@ -69,7 +70,7 @@ const SideBar = ({ isOpen, handleMenuClick, setIsOpen }: SideBarProps) => {
         setActiveLink(link.name);
       }
     });
-  }, []);
+  }, [pathname]);
 
   return (
     <div
